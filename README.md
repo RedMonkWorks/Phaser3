@@ -1,6 +1,86 @@
 # **Phaser 3 Scene change, Basic Physics and Spritesheet animation demo**
 
-## **Code**
+## What we are trying to do:
+* In Phaser we have scene changing functions to help us navigate through our game.
+* We are making 3 scenes in total. In 1st  scene we have to reach a door to navigate to the second scene, the 2nd  scene has a completely different Art type and not one but two portals which player should figure out which is the correct door to win the game.
+* 3rd scene is radically different from other two scenes as it has physics components and particle effects, it is a Game win scene in a way.
+
+![Image of Scene1](https://github.com/RedMonkWorks/Phaser3/blob/main/1.png)
+### Elements in this scene
+* Backdrop Image of grass, Door added as sprite and Character added as sprite and animated.
+* Boy is animated which we will see further along with how we are changing scenes.
+```javascript
+Boy = this.add.sprite(200, 300, 'Boy');
+door = this.add.sprite(710, 510, 'Door');
+ground = this.add.sprite(300, 200, 'Ground1’);
+```
+
+![Image of Scene2](https://github.com/RedMonkWorks/Phaser3/blob/main/2.png)
+### Elements in this scene
+* Girl as a sprite, Backdrop picture as a sprite and two portals with same sprite.
+* Girl is animated which we will see further along with how we are changing scenes.
+```javascript
+Boy = this.add.sprite(200, 300, 'Boy');
+door = this.add.sprite(710, 510, 'Door');
+ground = this.add.sprite(300, 200, 'Ground1’);
+```
+
+![Image of Scene3](https://github.com/RedMonkWorks/Phaser3/blob/main/3.png)
+### Physics in this scene
+* Code snippet for Particle effect
+```javascript
+var emitter = particles.createEmitter({
+            speed: 100,
+            scale: { start: 0.05, end: 0 },
+            blendMode: 'ADD'
+        });
+```
+* Code snippet for Bounce, gravity, setBounds and velocity
+```javascript
+logo1.setVelocity(100, 0);
+        logo1.setBounce(1, 1);
+        logo1.setGravityY(300);
+        logo1.setCollideWorldBounds(true);
+```
+
+## Animation
+```javascript
+this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('Boy', { start: 8, end: 15 }),
+            frameRate: 10,
+            repeat: -1
+        });
+```
+* This is an animation clip we have similar clips for left, up and down animation which we can see in the Rar file attached with work.
+* This snippet sets speed of animation with frameRate and which frames are included in clip with frames.
+* Usage, we use this snippet to activate the respective clip.
+```javascript
+if (cursors.left.isDown)
+{
+    if (Boy.x !=20)
+    {
+          Boy.anims.play('right', true);
+          Boy.x -= 2;
+    }
+ }
+```
+
+## Scene Change
+* This snippet takes us to Scene 2 from Scene 1.
+```javascript
+if (Boy.y >= 450 && Boy.x >= 680)
+{
+     door.setInteractive({ useHandCursor: true });
+     door.setInteractive().on('pointerdown', function() 
+     {
+                this.scene.scene.start('GameScene2');
+                this.scene.scene.pause('GameScene1');
+     });
+}
+```
+
+## **Complete Code**
 
 ```javascript
 var GameScene1 = new Phaser.Class({
@@ -291,83 +371,5 @@ var config = {
 var game = new Phaser.Game(config);
 ```
 
-## What we are trying to do:
-* In Phaser we have scene changing functions to help us navigate through our game.
-* We are making 3 scenes in total. In 1st  scene we have to reach a door to navigate to the second scene, the 2nd  scene has a completely different Art type and not one but two portals which player should figure out which is the correct door to win the game.
-* 3rd scene is radically different from other two scenes as it has physics components and particle effects, it is a Game win scene in a way.
-
-![Image of Scene1](https://github.com/RedMonkWorks/Phaser3/blob/main/1.png)
-### Elements in this scene
-* Backdrop Image of grass, Door added as sprite and Character added as sprite and animated.
-* Boy is animated which we will see further along with how we are changing scenes.
-```javascript
-Boy = this.add.sprite(200, 300, 'Boy');
-door = this.add.sprite(710, 510, 'Door');
-ground = this.add.sprite(300, 200, 'Ground1’);
-```
-
-![Image of Scene2](https://github.com/RedMonkWorks/Phaser3/blob/main/2.png)
-### Elements in this scene
-* Girl as a sprite, Backdrop picture as a sprite and two portals with same sprite.
-* Girl is animated which we will see further along with how we are changing scenes.
-```javascript
-Boy = this.add.sprite(200, 300, 'Boy');
-door = this.add.sprite(710, 510, 'Door');
-ground = this.add.sprite(300, 200, 'Ground1’);
-```
-
-![Image of Scene3](https://github.com/RedMonkWorks/Phaser3/blob/main/3.png)
-### Physics in this scene
-* Code snippet for Particle effect
-```javascript
-var emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 0.05, end: 0 },
-            blendMode: 'ADD'
-        });
-```
-* Code snippet for Bounce, gravity, setBounds and velocity
-```javascript
-logo1.setVelocity(100, 0);
-        logo1.setBounce(1, 1);
-        logo1.setGravityY(300);
-        logo1.setCollideWorldBounds(true);
-```
-
-## Animation
-```javascript
-this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('Boy', { start: 8, end: 15 }),
-            frameRate: 10,
-            repeat: -1
-        });
-```
-* This is an animation clip we have similar clips for left, up and down animation which we can see in the Rar file attached with work.
-* This snippet sets speed of animation with frameRate and which frames are included in clip with frames.
-* Usage, we use this snippet to activate the respective clip.
-```javascript
-if (cursors.left.isDown)
-{
-    if (Boy.x !=20)
-    {
-          Boy.anims.play('right', true);
-          Boy.x -= 2;
-    }
- }
-```
-
-## Scene Change
-* This snippet takes us to Scene 2 from Scene 1.
-```javascript
-if (Boy.y >= 450 && Boy.x >= 680)
-{
-     door.setInteractive({ useHandCursor: true });
-     door.setInteractive().on('pointerdown', function() 
-     {
-                this.scene.scene.start('GameScene2');
-                this.scene.scene.pause('GameScene1');
-     });
-}
-```
+#Created by RedMonk
 ![RedMonk Logo](https://github.com/RedMonkWorks/Phaser3/blob/main/RedMonk.png)
