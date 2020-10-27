@@ -296,7 +296,7 @@ var game = new Phaser.Game(config);
 * We are making 3 scenes in total. In 1st  scene we have to reach a door to navigate to the second scene, the 2nd  scene has a completely different Art type and not one but two portals which player should figure out which is the correct door to win the game.
 * 3rd scene is radically different from other two scenes as it has physics components and particle effects, it is a Game win scene in a way.
 
-
+![Image of Scene1](https://github.com/RedMonkWorks/Phaser3/blob/main/1.png)
 ### Elements in this scene
 * Backdrop Image of grass, Door added as sprite and Character added as sprite and animated.
 * Boy is animated which we will see further along with how we are changing scenes.
@@ -306,7 +306,7 @@ door = this.add.sprite(710, 510, 'Door');
 ground = this.add.sprite(300, 200, 'Ground1’);
 ```
 
-
+![Image of Scene2](https://github.com/RedMonkWorks/Phaser3/blob/main/2.png)
 ### Elements in this scene
 * Girl as a sprite, Backdrop picture as a sprite and two portals with same sprite.
 * Girl is animated which we will see further along with how we are changing scenes.
@@ -316,6 +316,7 @@ door = this.add.sprite(710, 510, 'Door');
 ground = this.add.sprite(300, 200, 'Ground1’);
 ```
 
+![Image of Scene3](https://github.com/RedMonkWorks/Phaser3/blob/main/3.png)
 ### Physics in this scene
 * Code snippet for Particle effect
 ```javascript
@@ -369,3 +370,4 @@ if (Boy.y >= 450 && Boy.x >= 680)
      });
 }
 ```
+![RedMonk Logo](https://github.com/RedMonkWorks/Phaser3/blob/main/RedMonk.png)
